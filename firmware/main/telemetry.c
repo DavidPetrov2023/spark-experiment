@@ -58,7 +58,6 @@ static char *payload(void)
     cJSON *product = cJSON_AddObjectToObject(root, "ProductInfo");
     cJSON_AddStringToObject(product, "Název zařízení", "ESP Test");
     char *out = cJSON_PrintUnformatted(root);
-    cJSON_Delete(root);
     return out;
 }
 
