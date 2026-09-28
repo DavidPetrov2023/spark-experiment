@@ -121,6 +121,10 @@ jinak ho agent načte a výsledky budou zkreslené; runner to kontroluje.
 Nejzáludnější je **X3**: příznak ukazuje na aktualizaci firmwaru (OTA), ale příčina je jinde. Lokální modely ji
 nevyřešily ani jednou a několikrát sahaly do OTA. Podrobnosti v `Spark-proti-Claude.pdf`.
 
+Celý postup na jedné úloze (hlášení, skutečná příčina, oprava od Claude i od Sparku, jak se ověřila) ukazuje ve
+zprávě kapitola **Příklad: jedna chyba od hlášení po opravu** (úloha X1). Včetně případu, kdy model opravil jen
+polovinu a ohlásil hotovo. X1 je tím prozrazená, na vlastní pokus si vyberte jinou.
+
 ## Pravidla
 
 - Do chatu ani nástrojů nevkládat hesla, klíče ani data zákazníků bez souhlasu. Co model přečte, vidí jeho
