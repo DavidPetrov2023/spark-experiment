@@ -1,0 +1,3 @@
+# Úloha X2: hlášení od uživatele
+
+Pole EventState v telemetrii má ukazovat, jestli červená LED právě svítí: `blink_on`, nebo `blink_off`. Většinou to sedí, ale zhruba jednou za pár dní přijde nesmyslná hodnota, třeba `blink_onf` nebo `blink_of`. Server ji odmítne a v dashboardu zůstane díra. Hlásí to víc desek a restart nepomáhá.
