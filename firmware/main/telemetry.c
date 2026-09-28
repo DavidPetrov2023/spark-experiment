@@ -58,6 +58,8 @@ static char *payload(void)
     cJSON *product = cJSON_AddObjectToObject(root, "ProductInfo");
     cJSON_AddStringToObject(product, "Název zařízení", "ESP Test");
     char *out = cJSON_PrintUnformatted(root);
+    char *dbg = cJSON_Print(root);
+    ESP_LOGD(TAG, "payload: %s", dbg);
     cJSON_Delete(root);
     return out;
 }

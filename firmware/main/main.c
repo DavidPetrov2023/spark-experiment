@@ -73,8 +73,8 @@ void app_main(void)
     wifi_start();
     telemetry_start();
 
-    bool on = false;
     while (1) {
+        bool on = false;
         on = !on;
         gpio_set_level(LED_RED, on ? 0 : 1);
         vTaskDelay(pdMS_TO_TICKS(BLINK_MS));
