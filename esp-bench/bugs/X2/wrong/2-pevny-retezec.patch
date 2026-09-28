@@ -1,0 +1,13 @@
+diff --git a/main/telemetry.c b/main/telemetry.c
+index 8eba0c7..ed56864 100644
+--- a/main/telemetry.c
++++ b/main/telemetry.c
+@@ -54,7 +54,7 @@ static char *payload(void)
+     cJSON *live = cJSON_AddObjectToObject(root, "LiveStatus");
+     cJSON_AddNumberToObject(live, "Uptime", (double)(esp_timer_get_time() / 1000000));
+     cJSON_AddNumberToObject(live, "ErrorCode", 0);
+-    cJSON_AddStringToObject(live, "EventState", g_event_state);
++    cJSON_AddStringToObject(live, "EventState", "blink");
+     // ACTIVE natvrdo: push_ota na serveru odmitne desku, o ktere si mysli,
+     // ze spi, a spanek tenhle firmware neumi.
+     cJSON_AddStringToObject(live, "PowerMode", "ACTIVE");

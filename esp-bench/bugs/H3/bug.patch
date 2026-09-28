@@ -1,0 +1,13 @@
+diff --git a/main/main.c b/main/main.c
+index d8429dc..b15397c 100644
+--- a/main/main.c
++++ b/main/main.c
+@@ -32,7 +32,7 @@ static const char *TAG = "ESPTEST";
+ #define MOTOR_RIGHT_PWM 16
+ #define MOTOR_RIGHT_DIR 17
+ 
+-#define BLINK_MS 500
++#define BLINK_MS (500 / portTICK_PERIOD_MS)
+ 
+ static void pins_init(void)
+ {

@@ -1,0 +1,37 @@
+diff --git a/main/telemetry.c b/main/telemetry.c
+index 98f4121..3b7db49 100644
+--- a/main/telemetry.c
++++ b/main/telemetry.c
+@@ -10,6 +10,8 @@
+ #include "esp_log.h"
+ #include "esp_mac.h"
+ #include "esp_timer.h"
++#include "esp_heap_caps.h"
++#include "esp_wifi.h"
+ 
+ #include "device_config.h"
+ #include "ota.h"
+@@ -42,6 +44,14 @@ static esp_err_t on_http(esp_http_client_event_t *evt)
+     return ESP_OK;
+ }
+ 
++static void add_wifi_status(cJSON *live)
++{
++    int rssi;
++    esp_err_t err = esp_wifi_sta_get_rssi(&rssi);
++    if (err != ESP_OK) return;
++    cJSON_AddNumberToObject(live, "RSSI", rssi);
++}
++
+ static char *payload(void)
+ {
+     cJSON *root = cJSON_CreateObject();
+@@ -55,6 +65,8 @@ static char *payload(void)
+     // ACTIVE natvrdo: push_ota na serveru odmitne desku, o ktere si mysli,
+     // ze spi, a spanek tenhle firmware neumi.
+     cJSON_AddStringToObject(live, "PowerMode", "ACTIVE");
++    add_wifi_status(live);
++    cJSON_AddNumberToObject(live, "MinFreeHeap", heap_caps_get_minimum_free_size(MALLOC_CAP_DEFAULT));
+     cJSON *product = cJSON_AddObjectToObject(root, "ProductInfo");
+     cJSON_AddStringToObject(product, "Název zařízení", "ESP Test");
+     char *out = cJSON_PrintUnformatted(root);

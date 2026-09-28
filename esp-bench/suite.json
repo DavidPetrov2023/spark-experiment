@@ -1,0 +1,38 @@
+{
+  "name": "ESPTest – oprava vnesené chyby (ESP32, ESP-IDF 5.2.6)",
+  "description": "Kopie funkčního firmwaru ESPTest (commit 6fabfec) s jednou vnesenou chybou mimo OTA. Model dostane jen popis příznaku.",
+  "baseline": "baseline",
+  "bugs_dir": "bugs",
+  "prompt_template": "suite/prompt.md",
+  "harness_files": {
+    "build.sh": "suite/build.sh",
+    "build.ps1": "suite/build.ps1"
+  },
+  "allowed_commands": [
+    "sh build.sh",
+    "bash build.sh",
+    "./build.sh"
+  ],
+  "build": {
+    "cmd": [
+      "powershell",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "build.ps1"
+    ],
+    "timeout_s": 900,
+    "log": "build.log",
+    "warning_regex": "warning:",
+    "persist": [
+      "build",
+      "sdkconfig"
+    ],
+    "cleanup": []
+  },
+  "guard": "suite/guard.py",
+  "run_timeout_s": 900,
+  "work_dir": "C:/esp-bench-work",
+  "results_dir": "results"
+}

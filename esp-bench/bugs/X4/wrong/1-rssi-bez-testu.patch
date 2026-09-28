@@ -1,0 +1,24 @@
+diff --git a/main/telemetry.c b/main/telemetry.c
+index 98f4121..0f1615f 100644
+--- a/main/telemetry.c
++++ b/main/telemetry.c
+@@ -10,6 +10,8 @@
+ #include "esp_log.h"
+ #include "esp_mac.h"
+ #include "esp_timer.h"
++#include "esp_system.h"
++#include "esp_wifi.h"
+ 
+ #include "device_config.h"
+ #include "ota.h"
+@@ -55,6 +57,10 @@ static char *payload(void)
+     // ACTIVE natvrdo: push_ota na serveru odmitne desku, o ktere si mysli,
+     // ze spi, a spanek tenhle firmware neumi.
+     cJSON_AddStringToObject(live, "PowerMode", "ACTIVE");
++    wifi_ap_record_t ap;
++    esp_wifi_sta_get_ap_info(&ap);
++    cJSON_AddNumberToObject(live, "RSSI", ap.rssi);
++    cJSON_AddNumberToObject(live, "MinFreeHeap", esp_get_minimum_free_heap_size());
+     cJSON *product = cJSON_AddObjectToObject(root, "ProductInfo");
+     cJSON_AddStringToObject(product, "Název zařízení", "ESP Test");
+     char *out = cJSON_PrintUnformatted(root);

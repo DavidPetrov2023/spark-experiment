@@ -1,0 +1,14 @@
+{
+  "_popis": "Co má review u každé vnesené chyby najít: soubor a aspoň jedno klíčové slovo v popisu nálezu (malými písmeny, bez ohledu na diakritiku). U X1 jsou dvě chyby, plný zásah = obě.",
+  "B1": [{"soubor": "main/main.c", "slova": ["led_red", "pin 12", "12", "modr", "cerven", "27"]}],
+  "B2": [{"soubor": "main/main.c", "slova": ["on", "neblik", "nepreklap", "neguj", "negac", "trvale", "stale", "toggle"]}],
+  "B3": [{"soubor": "main/telemetry.c", "slova": ["uptime", "1000", "sekund", "mikro", "jednot"]}],
+  "B4": [{"soubor": "main/telemetry.c", "slova": ["cjson_delete", "unik", "leak", "uvoln", "root"]}],
+  "H1": [{"soubor": "main/main.c", "slova": ["esp_rom_delay_us", "watchdog", "aktivn", "busy", "blokuj", "idle"]}],
+  "H2": [{"soubor": "main/telemetry.c", "slova": ["int32", "preteceni", "overflow", "pretypov", "35"]}],
+  "H3": [{"soubor": "main/main.c", "slova": ["blink_ms", "porttick", "pdms_to_ticks", "tik", "dvakrat", "dvoj", "double"]}],
+  "X1": [{"soubor": "main/main.c", "slova": ["bool on", "smyck", "loop", "kazdy pruchod", "reset", "vzdy true", "znovu"]},
+         {"soubor": "main/telemetry.c", "slova": ["dbg", "cjson_print", "unik", "leak", "uvoln"]}],
+  "X2": [{"soubor": "", "slova": ["g_event_state", "soubeh", "race", "mutex", "zamek", "atomic", "kriticka sekce", "snprintf"]}],
+  "X3": [{"soubor": "main/main.c", "slova": ["power_settle", "porttick", "125", "12500", "nasob", "rollback", "zpozdeni"]}]
+}

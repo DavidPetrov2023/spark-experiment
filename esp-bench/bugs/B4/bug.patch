@@ -1,0 +1,12 @@
+diff --git a/main/telemetry.c b/main/telemetry.c
+index 98f4121..ae68d55 100644
+--- a/main/telemetry.c
++++ b/main/telemetry.c
+@@ -58,7 +58,6 @@ static char *payload(void)
+     cJSON *product = cJSON_AddObjectToObject(root, "ProductInfo");
+     cJSON_AddStringToObject(product, "Název zařízení", "ESP Test");
+     char *out = cJSON_PrintUnformatted(root);
+-    cJSON_Delete(root);
+     return out;
+ }
+ 

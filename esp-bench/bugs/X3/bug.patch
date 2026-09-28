@@ -1,0 +1,23 @@
+diff --git a/main/main.c b/main/main.c
+index d8429dc..aaf04af 100644
+--- a/main/main.c
++++ b/main/main.c
+@@ -34,6 +34,10 @@ static const char *TAG = "ESPTEST";
+ 
+ #define BLINK_MS 500
+ 
++// Po zapnuti chvili pockat, nez se pusti WiFi: pri startu bere proudovou
++// spicku a na slabsim zdroji deska brownoutovala. Staci ~1,25 s.
++#define POWER_SETTLE_MS 1250
++
+ static void pins_init(void)
+ {
+     gpio_config_t io = {
+@@ -70,6 +74,7 @@ void app_main(void)
+     ESP_LOGI(TAG, "ESPTest v%s", FIRMWARE_VERSION);
+ 
+     ota_boot_check();
++    vTaskDelay(POWER_SETTLE_MS * portTICK_PERIOD_MS);
+     wifi_start();
+     telemetry_start();
+ 

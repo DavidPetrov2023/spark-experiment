@@ -1,0 +1,17 @@
+# ESPTest - minimalni firmware na desce Zobo robota (ESP32, 4 MB flash).
+
+# Flash a oddily: stejne jako robot, jinak by OTA zapsala image, ktery se
+# do oddilu nevejde nebo sedi jinde.
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+CONFIG_PARTITION_TABLE_FILENAME="partitions.csv"
+
+# Rollback: novy firmware po OTA nabehne jako "zkusebni" a potvrdi se az po
+# prvni uspesne telemetrii (ota.c). Kdyz se nepotvrdi, bootloader vrati ten
+# predchozi. Bootloader na desce je z robota a rollback v nem zapnuty je.
+CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE=y
+
+CONFIG_ESP_HTTP_CLIENT_ENABLE_HTTPS=y
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240=y
+CONFIG_LOG_DEFAULT_LEVEL_INFO=y

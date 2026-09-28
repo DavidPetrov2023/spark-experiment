@@ -1,0 +1,20 @@
+diff --git a/main/main.c b/main/main.c
+index d8429dc..1187715 100644
+--- a/main/main.c
++++ b/main/main.c
+@@ -10,6 +10,7 @@
+ #include "freertos/task.h"
+ #include "driver/gpio.h"
+ #include "esp_log.h"
++#include "esp_rom_sys.h"
+ #include "nvs_flash.h"
+ 
+ #include "ota.h"
+@@ -77,6 +78,6 @@ void app_main(void)
+     while (1) {
+         on = !on;
+         gpio_set_level(LED_RED, on ? 0 : 1);
+-        vTaskDelay(pdMS_TO_TICKS(BLINK_MS));
++        esp_rom_delay_us(BLINK_MS * 1000);
+     }
+ }

@@ -1,0 +1,3 @@
+# LF vsude (jako ESPTest); patche beze zmen, jinak by je git apply na CRLF odmitl.
+* text=auto eol=lf
+*.patch -text

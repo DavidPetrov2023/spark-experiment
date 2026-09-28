@@ -1,0 +1,13 @@
+diff --git a/main/ota.c b/main/ota.c
+index 4b45e58..2c99b9f 100644
+--- a/main/ota.c
++++ b/main/ota.c
+@@ -17,7 +17,7 @@ static const char *TAG = "OTA";
+ // aktualizovat jen po siti, takze firmware, ktery se na server nedostane,
+ // se nesmi potvrdit: bez toho by zustala viset s obrazem, ktery dalsi OTA
+ // uz neprijme, a zachranit ji pujde jen kabelem.
+-#define OTA_CONFIRM_TIMEOUT_S 120
++#define OTA_CONFIRM_TIMEOUT_S 300
+ 
+ static volatile bool s_pending = false;
+ static volatile bool s_running = false;

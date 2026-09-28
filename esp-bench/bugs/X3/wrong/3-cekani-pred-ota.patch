@@ -1,0 +1,14 @@
+diff --git a/main/main.c b/main/main.c
+index aaf04af..1b7f7bd 100644
+--- a/main/main.c
++++ b/main/main.c
+@@ -73,8 +73,8 @@ void app_main(void)
+     pins_init();
+     ESP_LOGI(TAG, "ESPTest v%s", FIRMWARE_VERSION);
+ 
+-    ota_boot_check();
+     vTaskDelay(POWER_SETTLE_MS * portTICK_PERIOD_MS);
++    ota_boot_check();
+     wifi_start();
+     telemetry_start();
+ 

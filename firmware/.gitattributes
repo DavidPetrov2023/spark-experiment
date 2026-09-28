@@ -1,0 +1,3 @@
+# Konce radku LF na vsech strojich, jako WebPetrov. Bez toho autocrlf
+# prepisuje soubory a diff mezi pocitaci ukazuje cele soubory jako zmenene.
+* text=auto eol=lf

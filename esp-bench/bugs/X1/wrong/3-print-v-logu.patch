@@ -1,0 +1,28 @@
+diff --git a/main/main.c b/main/main.c
+index 9424640..d8429dc 100644
+--- a/main/main.c
++++ b/main/main.c
+@@ -73,8 +73,8 @@ void app_main(void)
+     wifi_start();
+     telemetry_start();
+ 
++    bool on = false;
+     while (1) {
+-        bool on = false;
+         on = !on;
+         gpio_set_level(LED_RED, on ? 0 : 1);
+         vTaskDelay(pdMS_TO_TICKS(BLINK_MS));
+diff --git a/main/telemetry.c b/main/telemetry.c
+index 4ae30f3..8347014 100644
+--- a/main/telemetry.c
++++ b/main/telemetry.c
+@@ -58,8 +58,7 @@ static char *payload(void)
+     cJSON *product = cJSON_AddObjectToObject(root, "ProductInfo");
+     cJSON_AddStringToObject(product, "Název zařízení", "ESP Test");
+     char *out = cJSON_PrintUnformatted(root);
+-    char *dbg = cJSON_Print(root);
+-    ESP_LOGD(TAG, "payload: %s", dbg);
++    ESP_LOGD(TAG, "payload: %s", cJSON_Print(root));
+     cJSON_Delete(root);
+     return out;
+ }

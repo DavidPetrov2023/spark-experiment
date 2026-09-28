@@ -1,0 +1,1 @@
+{"title": "Nová pole RSSI a MinFreeHeap", "file": "main/telemetry.c", "difficulty": "velmi těžká", "reference_lines": 8, "baseline_passes": false}

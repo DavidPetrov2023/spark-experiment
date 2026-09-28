@@ -1,0 +1,119 @@
+{
+  "spark_provider": {
+    "base_url": "",
+    "api_key_env": "LITELLM_API_KEY",
+    "models": {
+      "qwen3-coder-next": {
+        "context": 262144,
+        "output": 32768
+      },
+      "qwen3-coder-30b": {
+        "context": 65536,
+        "output": 16384
+      },
+      "qwen3-4b": {
+        "context": 32768,
+        "output": 8192
+      },
+      "gpt-oss-120b": {
+        "context": 131072,
+        "output": 32768,
+        "reasoning": "high"
+      }
+    },
+    "_popis": "Adresa Sparku se bere z proměnné prostředí SPARK_URL, klíč z LITELLM_API_KEY."
+  },
+  "configs": [
+    {
+      "name": "haiku",
+      "label": "Claude Haiku",
+      "harness": "claude-code",
+      "model": "haiku",
+      "enabled": true
+    },
+    {
+      "name": "sonnet",
+      "label": "Claude Sonnet",
+      "harness": "claude-code",
+      "model": "sonnet",
+      "enabled": true
+    },
+    {
+      "name": "opus",
+      "label": "Claude Opus",
+      "harness": "claude-code",
+      "model": "opus",
+      "enabled": true
+    },
+    {
+      "name": "spark-next-cc",
+      "label": "qwen3-coder-next (Claude Code)",
+      "harness": "claude-code",
+      "model": "qwen3-coder-next",
+      "spark": true,
+      "enabled": false,
+      "note": "na Sparku od 2026-09-27 14:34 neni (v supliku)"
+    },
+    {
+      "name": "spark-next-oc",
+      "label": "qwen3-coder-next (OpenCode)",
+      "harness": "opencode",
+      "model": "qwen3-coder-next",
+      "spark": true,
+      "enabled": false,
+      "note": "na Sparku od 2026-09-27 14:34 neni (v supliku)"
+    },
+    {
+      "name": "spark-coder-cc",
+      "label": "qwen3-coder-30b (Claude Code)",
+      "harness": "claude-code",
+      "model": "qwen3-coder-30b",
+      "spark": true,
+      "enabled": false,
+      "note": "na Sparku od 2026-09-26 neni"
+    },
+    {
+      "name": "spark-coder-oc",
+      "label": "qwen3-coder-30b (OpenCode)",
+      "harness": "opencode",
+      "model": "qwen3-coder-30b",
+      "spark": true,
+      "enabled": false,
+      "note": "na Sparku od 2026-09-26 neni"
+    },
+    {
+      "name": "spark-4b-cc",
+      "label": "qwen3-4b (Claude Code)",
+      "harness": "claude-code",
+      "model": "qwen3-4b",
+      "spark": true,
+      "enabled": false,
+      "note": "na Sparku od 2026-09-26 neni"
+    },
+    {
+      "name": "spark-4b-oc",
+      "label": "qwen3-4b (OpenCode)",
+      "harness": "opencode",
+      "model": "qwen3-4b",
+      "spark": true,
+      "enabled": false,
+      "note": "na Sparku od 2026-09-26 neni"
+    },
+    {
+      "name": "spark-gptoss-cc",
+      "label": "gpt-oss-120b (Claude Code)",
+      "harness": "claude-code",
+      "model": "gpt-oss-120b",
+      "spark": true,
+      "enabled": true
+    },
+    {
+      "name": "spark-gptoss-oc",
+      "label": "gpt-oss-120b (OpenCode)",
+      "harness": "opencode",
+      "model": "gpt-oss-120b",
+      "spark": true,
+      "enabled": true
+    }
+  ]
+}

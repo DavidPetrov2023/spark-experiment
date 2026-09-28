@@ -1,0 +1,13 @@
+diff --git a/main/telemetry.c b/main/telemetry.c
+index 98f4121..484eae0 100644
+--- a/main/telemetry.c
++++ b/main/telemetry.c
+@@ -49,7 +49,7 @@ static char *payload(void)
+     cJSON_AddStringToObject(info, "ID", s_id);
+     cJSON_AddStringToObject(info, "Firmware", FIRMWARE_VERSION);
+     cJSON *live = cJSON_AddObjectToObject(root, "LiveStatus");
+-    cJSON_AddNumberToObject(live, "Uptime", (double)(esp_timer_get_time() / 1000000));
++    cJSON_AddNumberToObject(live, "Uptime", (double)((int32_t)esp_timer_get_time() / 1000000));
+     cJSON_AddNumberToObject(live, "ErrorCode", 0);
+     cJSON_AddStringToObject(live, "EventState", "blink");
+     // ACTIVE natvrdo: push_ota na serveru odmitne desku, o ktere si mysli,

@@ -1,0 +1,53 @@
+diff --git a/main/main.c b/main/main.c
+index d8429dc..243bcf2 100644
+--- a/main/main.c
++++ b/main/main.c
+@@ -6,6 +6,7 @@
+  */
+ 
+ #include <stdbool.h>
++#include <stdio.h>
+ #include "freertos/FreeRTOS.h"
+ #include "freertos/task.h"
+ #include "driver/gpio.h"
+@@ -34,6 +35,9 @@ static const char *TAG = "ESPTEST";
+ 
+ #define BLINK_MS 500
+ 
++// Stav pro telemetrii (EventState): "blink_on", kdyz cervena prave sviti, jinak "blink_off".
++char g_event_state[16] = "blink_off";
++
+ static void pins_init(void)
+ {
+     gpio_config_t io = {
+@@ -77,6 +81,7 @@ void app_main(void)
+     while (1) {
+         on = !on;
+         gpio_set_level(LED_RED, on ? 0 : 1);
++        snprintf(g_event_state, sizeof(g_event_state), "blink_%s", on ? "on" : "off");
+         vTaskDelay(pdMS_TO_TICKS(BLINK_MS));
+     }
+ }
+diff --git a/main/telemetry.c b/main/telemetry.c
+index 98f4121..8eba0c7 100644
+--- a/main/telemetry.c
++++ b/main/telemetry.c
+@@ -24,6 +24,9 @@ static const char *TAG = "TELEMETRY";
+ 
+ static char s_id[24];
+ 
++// Stav cervene LED z main.c ("blink_on" / "blink_off").
++extern char g_event_state[16];
++
+ typedef struct {
+     char buf[1024];
+     size_t len;
+@@ -51,7 +54,7 @@ static char *payload(void)
+     cJSON *live = cJSON_AddObjectToObject(root, "LiveStatus");
+     cJSON_AddNumberToObject(live, "Uptime", (double)(esp_timer_get_time() / 1000000));
+     cJSON_AddNumberToObject(live, "ErrorCode", 0);
+-    cJSON_AddStringToObject(live, "EventState", "blink");
++    cJSON_AddStringToObject(live, "EventState", g_event_state);
+     // ACTIVE natvrdo: push_ota na serveru odmitne desku, o ktere si mysli,
+     // ze spi, a spanek tenhle firmware neumi.
+     cJSON_AddStringToObject(live, "PowerMode", "ACTIVE");

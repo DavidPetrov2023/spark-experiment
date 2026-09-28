@@ -1,0 +1,28 @@
+diff --git a/main/main.c b/main/main.c
+index 9424640..d8b5b3d 100644
+--- a/main/main.c
++++ b/main/main.c
+@@ -73,9 +73,9 @@ void app_main(void)
+     wifi_start();
+     telemetry_start();
+ 
++    int on = 0;
+     while (1) {
+-        bool on = false;
+-        on = !on;
++        on = on ? 0 : 1;
+         gpio_set_level(LED_RED, on ? 0 : 1);
+         vTaskDelay(pdMS_TO_TICKS(BLINK_MS));
+     }
+diff --git a/main/telemetry.c b/main/telemetry.c
+index 4ae30f3..a61ab0c 100644
+--- a/main/telemetry.c
++++ b/main/telemetry.c
+@@ -60,6 +60,7 @@ static char *payload(void)
+     char *out = cJSON_PrintUnformatted(root);
+     char *dbg = cJSON_Print(root);
+     ESP_LOGD(TAG, "payload: %s", dbg);
++    cJSON_free(dbg);
+     cJSON_Delete(root);
+     return out;
+ }

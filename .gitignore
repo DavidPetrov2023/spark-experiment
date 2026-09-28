@@ -1,0 +1,11 @@
+review/vystupy/
+esp-bench/results/
+esp-bench/.venv/
+.venv/
+build/
+sdkconfig
+sdkconfig.old
+__pycache__/
+*.pyc
+.env
+.env.*
