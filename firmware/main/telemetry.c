@@ -24,6 +24,9 @@ static const char *TAG = "TELEMETRY";
 
 static char s_id[24];
 
+// Stav cervene LED z main.c ("blink_on" / "blink_off").
+extern char g_event_state[16];
+
 typedef struct {
     char buf[1024];
     size_t len;
@@ -51,7 +54,7 @@ static char *payload(void)
     cJSON *live = cJSON_AddObjectToObject(root, "LiveStatus");
     cJSON_AddNumberToObject(live, "Uptime", (double)(esp_timer_get_time() / 1000000));
     cJSON_AddNumberToObject(live, "ErrorCode", 0);
-    cJSON_AddStringToObject(live, "EventState", "blink");
+    cJSON_AddStringToObject(live, "EventState", g_event_state);
     // ACTIVE natvrdo: push_ota na serveru odmitne desku, o ktere si mysli,
     // ze spi, a spanek tenhle firmware neumi.
     cJSON_AddStringToObject(live, "PowerMode", "ACTIVE");

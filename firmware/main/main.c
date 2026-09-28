@@ -6,6 +6,7 @@
  */
 
 #include <stdbool.h>
+#include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "driver/gpio.h"
@@ -33,6 +34,9 @@ static const char *TAG = "ESPTEST";
 #define MOTOR_RIGHT_DIR 17
 
 #define BLINK_MS 500
+
+// Stav pro telemetrii (EventState): "blink_on", kdyz cervena prave sviti, jinak "blink_off".
+char g_event_state[16] = "blink_off";
 
 static void pins_init(void)
 {
@@ -77,6 +81,7 @@ void app_main(void)
     while (1) {
         on = !on;
         gpio_set_level(LED_RED, on ? 0 : 1);
+        snprintf(g_event_state, sizeof(g_event_state), "blink_%s", on ? "on" : "off");
         vTaskDelay(pdMS_TO_TICKS(BLINK_MS));
     }
 }
