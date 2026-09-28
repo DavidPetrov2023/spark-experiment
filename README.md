@@ -29,6 +29,37 @@ model na Sparku nebo váš nástroj), zopakovat náš test, nebo si nechat uděl
    Klíč nikdy nedávat do souborů ani do gitu.
 3. **Claude** (volitelně): Claude Code přihlášený vlastním předplatným.
 
+## Rychlá ukázka: review na Sparku z VS Code
+
+Potřeba: Tailscale, proměnné z „Nastavení“ a Claude Code ve VS Code.
+
+1. Ve VS Code otevřete prázdnou složku a v terminálu stáhněte experiment:
+   ```
+   git clone https://github.com/DavidPetrov2023/spark-experiment.git .
+   ```
+2. Tento text zkopírujte do chatu Claude Code:
+   ```
+   Spusť code review poslední změny v úloze X3 na Sparku (model gpt-oss-120b):
+   python review/spark_review.py . --range origin/uloha/X3~1..origin/uloha/X3 --effort medium
+   Proměnné prostředí nekontroluj ani nevypisuj, nástroj si adresu a klíč načte sám.
+   Pak otevři vytvořenou zprávu z review/vystupy, shrň nálezy a porovnej je se skutečným řešením úlohy X3 (git show origin/reseni:RESENI.md).
+   ```
+3. Claude Code se zeptá na povolení spustit příkazy. Povolte `python review/spark_review.py …` a příkazy `git`.
+   Kdyby chtěl vypsat proměnné prostředí, odmítněte (adresa a klíč nemají být vidět). Celé to trvá 1–2 minuty,
+   zpráva ze Sparku je v `review/vystupy/`.
+
+**Co má vyjít:** Spark najde chybný řádek `vTaskDelay(POWER_SETTLE_MS * portTICK_PERIOD_MS)` v `firmware/main/main.c`:
+milisekundy se na tiky násobí místo dělení, deska čeká 125 s místo 1,25 s. Oprava je
+`vTaskDelay(pdMS_TO_TICKS(POWER_SETTLE_MS))`. Závažnost obvykle podcení (vysoká nebo střední místo kritická) a souvislost
+s návratem na starý firmware po OTA jen naznačí. Délku čekání občas spočítá o řád špatně (12,5 s). Formulace se
+pokaždé liší, chybný řádek i opravu ale v našich 9 pokusech našel pokaždé.
+
+**Pro srovnání s Claude** napište do chatu: `Teď udělej vlastní review stejné změny (git show origin/uloha/X3) a porovnej ho se Sparkem.`
+Claude v naší zkoušce označil chybu jako kritickou a přesně popsal, jak po 120 s spustí návrat na starý firmware (asi 2 minuty).
+
+Kód na Spark posílá jen náš nástroj. Claude Code ale běží u Anthropicu a zprávu i řešení čte. U kódu, který nesmí
+ven, spusťte příkaz z bodu 2 sami v terminálu.
+
 ## 1. Bez instalace: chat (Open WebUI na Sparku nebo claude.ai)
 
 1. V `ulohy.md` vyberte úlohu a otevřete její větev (na GitHubu přepínač větví).
