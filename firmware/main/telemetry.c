@@ -49,7 +49,7 @@ static char *payload(void)
     cJSON_AddStringToObject(info, "ID", s_id);
     cJSON_AddStringToObject(info, "Firmware", FIRMWARE_VERSION);
     cJSON *live = cJSON_AddObjectToObject(root, "LiveStatus");
-    cJSON_AddNumberToObject(live, "Uptime", (double)(esp_timer_get_time() / 1000000));
+    cJSON_AddNumberToObject(live, "Uptime", (double)((int32_t)esp_timer_get_time() / 1000000));
     cJSON_AddNumberToObject(live, "ErrorCode", 0);
     cJSON_AddStringToObject(live, "EventState", "blink");
     // ACTIVE natvrdo: push_ota na serveru odmitne desku, o ktere si mysli,
