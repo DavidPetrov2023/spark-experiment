@@ -2,7 +2,7 @@
   "name": "spark-chat",
   "displayName": "Spark Chat",
   "description": "Chat a code review s modelem gpt-oss-120b na serveru DGX Spark (LiteLLM). Adresa a klíč jen z proměnných prostředí.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "sparktest",
   "engines": { "vscode": "^1.90.0" },
   "categories": ["AI", "Chat"],

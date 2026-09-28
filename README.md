@@ -39,7 +39,7 @@ Potřeba je Tailscale.
 1. Ve VS Code otevřete prázdnou složku a v terminálu (Ctrl+;) spusťte:
    ```
    git clone https://github.com/DavidPetrov2023/spark-experiment.git .
-   code --install-extension vscode-spark/spark-chat-0.1.0.vsix
+   code --install-extension vscode-spark/spark-chat-0.1.1.vsix
    ```
 2. Vlevo v liště klikněte na ikonu **Spark** (hvězdička). V hlavičce okna je „Spark · gpt-oss-120b“.
    Kdyby se ikona neobjevila: Ctrl+Shift+P → **Developer: Reload Window**.

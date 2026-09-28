@@ -9,12 +9,29 @@ bez Copilotu, bez Claude. V levém panelu má vlastní ikonu **Spark**.
   (`REVIEW-PRAVIDLA.md`, jinak `review/pravidla-vychozi.md`), diff a plné znění změněných souborů.
 - **Úroveň přemýšlení:** low / medium / high v hlavičce (výchozí medium).
 
-## Instalace
+## Instalace (Windows)
 
-1. Tailscale připojený a proměnné prostředí `SPARK_URL` (adresa LiteLLM na Sparku, bez `/v1`) a `LITELLM_API_KEY`
-   (osobní klíč). Adresu i klíč dá správce Sparku.
-2. `code --install-extension vscode-spark/spark-chat-0.1.0.vsix` a restartovat VS Code.
-3. Vlevo ikona **Spark** (hvězdička).
+1. **Tailscale** nainstalovaný a připojený (pozvánku dá správce Sparku).
+2. **Adresa a klíč** od správce Sparku jako uživatelské proměnné prostředí. V PowerShellu (hodnoty doplnit):
+   ```
+   setx SPARK_URL "https://…"          # adresa LiteLLM na Sparku, bez /v1
+   setx LITELLM_API_KEY "sk-…"         # váš osobní klíč
+   ```
+   Klíč nikdy nedávejte do souborů, do gitu ani do chatu.
+3. **Instalace rozšíření** ve složce, kde je tento soubor:
+   ```
+   code --install-extension spark-chat-0.1.1.vsix
+   ```
+   Nebo ve VS Code: Extensions (Ctrl+Shift+X) → `…` → **Install from VSIX…**
+4. **Zavřít a znovu otevřít VS Code** (kvůli proměnným). Vlevo v liště je ikona **Spark** (hvězdička).
+
+## Použití
+
+- Chat: napsat dotaz a Enter. Zaškrtnutím „přiložit otevřený soubor“ se pošle otevřený soubor nebo označený výběr.
+- Review: otevřít složku s git repozitářem, kliknout **🔍 Review posledního commitu** a vybrat větev.
+  Zkušební úloha: experiment `github.com/DavidPetrov2023/spark-experiment`, větev `origin/uloha/X3`.
+- Úroveň přemýšlení: medium na běžné dotazy, high na těžké (pomalejší).
+- Spark nic nemění ani nespouští, jen odpovídá.
 
 ## Bezpečnost
 

@@ -19,7 +19,9 @@
     return s.replace(/\u0000(\d+)\u0000/g, (_, i) => '<code>' + esc(codes[+i]) + '</code>');
   }
   function md(src) {
-    const lines = src.replace(/\r\n/g, '\n').split('\n');
+    const lines = src.replace(/\r\n/g, '\n')
+      .replace(/```(\w*)[ \t]+([^\n`]+?)[ \t]*```/g, (_, lang, code) => '\n```' + lang + '\n' + code + '\n```\n')  // blok na jednom řádku
+      .split('\n');
     let out = '', i = 0;
     const isTableSep = l => /^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$/.test(l);
     const cells = l => l.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map(c => c.trim());
@@ -55,6 +57,7 @@
         while (i < lines.length) {
           const m = lines[i].match(/^\s*([-*•]|\d+[.)])\s+(.*)$/);
           if (!m) {
+            if (/^\s*```/.test(lines[i])) break;  // blok kódu uvnitř odrážky se vykreslí jako blok
             if (lines[i].trim() && /^\s{2,}/.test(lines[i])) { items = items.replace(/<\/li>$/, ' ' + inline(lines[i].trim()) + '</li>'); i++; continue; }
             break;
           }
