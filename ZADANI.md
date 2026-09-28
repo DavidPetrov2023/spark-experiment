@@ -1,0 +1,3 @@
+# Úloha H2: hlášení od uživatele
+
+Uptime desky v dashboardu roste správně, ale zhruba po 35 minutách provozu skočí do záporných hodnot (kolem −2147) a odtud zase roste. Asi po dalších 70 minutách se to opakuje. Restart desky to vždy na chvíli spraví. Server čeká uptime v sekundách.
