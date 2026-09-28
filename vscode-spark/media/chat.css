@@ -1,0 +1,54 @@
+:root { --spark: #C97A2E; --spark-soft: color-mix(in srgb, #C97A2E 14%, transparent); }
+* { box-sizing: border-box; }
+body { margin: 0; padding: 0; height: 100vh; display: flex; flex-direction: column; color: var(--vscode-foreground);
+  font: var(--vscode-font-size)/1.5 var(--vscode-font-family); background: var(--vscode-sideBar-background); }
+header { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px 8px;
+  border-bottom: 2px solid var(--spark); }
+.brand { display: flex; align-items: center; gap: 7px; font-size: 1.15em; }
+.brand img { width: 20px; height: 20px; }
+.brand b { color: var(--spark); letter-spacing: .02em; }
+.model { font: .8em var(--vscode-editor-font-family); padding: 1px 6px; border-radius: 4px; background: var(--spark-soft);
+  border: 1px solid color-mix(in srgb, var(--spark) 45%, transparent); }
+.effort { font-size: .85em; color: var(--vscode-descriptionForeground); display: flex; align-items: center; gap: 5px; }
+select { background: var(--vscode-dropdown-background); color: var(--vscode-dropdown-foreground);
+  border: 1px solid var(--vscode-dropdown-border); padding: 1px 3px; }
+.actions { display: flex; gap: 6px; padding: 8px 12px; flex-wrap: wrap; }
+button { background: var(--vscode-button-background); color: var(--vscode-button-foreground); border: 0; border-radius: 3px;
+  padding: 5px 10px; cursor: pointer; font: inherit; }
+button:hover { background: var(--vscode-button-hoverBackground); }
+button:disabled { opacity: .5; cursor: default; }
+button.secondary { background: var(--vscode-button-secondaryBackground); color: var(--vscode-button-secondaryForeground); }
+button.danger { background: var(--vscode-errorForeground); color: #fff; }
+#review { background: var(--spark); color: #fff; }
+main { flex: 1; overflow-y: auto; padding: 4px 12px 12px; }
+.empty { color: var(--vscode-foreground); padding: 12px 2px; }
+.empty .muted { color: var(--vscode-descriptionForeground); font-size: .9em; }
+.msg { margin: 10px 0; padding: 8px 10px; border-radius: 6px; overflow-wrap: anywhere; }
+.msg.user { background: var(--vscode-input-background); border: 1px solid var(--vscode-input-border, transparent); }
+.msg.spark { background: var(--spark-soft); border-left: 3px solid var(--spark); }
+.msg.error { color: var(--vscode-errorForeground); border: 1px solid var(--vscode-errorForeground); }
+.who { font-size: .8em; font-weight: 600; color: var(--vscode-descriptionForeground); margin-bottom: 3px; display: flex; align-items: center; gap: 6px; }
+.msg.spark .who { color: var(--spark); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--spark); animation: pulse 1s infinite alternate; }
+.dot.off { animation: none; opacity: .5; }
+@keyframes pulse { from { opacity: 1; } to { opacity: .25; } }
+.status { font-size: .8em; color: var(--vscode-descriptionForeground); margin-bottom: 4px; }
+.status.err { color: var(--vscode-errorForeground); }
+.note { font-size: .8em; color: var(--vscode-descriptionForeground); margin-top: 4px; }
+.body p { margin: .4em 0; }
+.body h3, .body h4, .body h5, .body h6 { margin: .8em 0 .3em; font-size: 1em; }
+.body ul, .body ol { margin: .3em 0; padding-left: 1.4em; }
+.body code { font-family: var(--vscode-editor-font-family); font-size: .92em; background: var(--vscode-textCodeBlock-background);
+  padding: 0 3px; border-radius: 3px; }
+.body pre { background: var(--vscode-textCodeBlock-background); padding: 8px; border-radius: 4px; overflow-x: auto; }
+.body pre code { background: none; padding: 0; white-space: pre; }
+.body hr { border: 0; border-top: 1px solid var(--vscode-widget-border, #8884); }
+.tbl { overflow-x: auto; }
+.body table { border-collapse: collapse; margin: .4em 0; font-size: .92em; }
+.body th, .body td { border: 1px solid var(--vscode-widget-border, #8886); padding: 3px 6px; text-align: left; vertical-align: top; }
+footer { border-top: 1px solid var(--vscode-widget-border, #8884); padding: 8px 12px 10px; }
+.attach { font-size: .85em; color: var(--vscode-descriptionForeground); display: flex; align-items: center; gap: 5px; margin-bottom: 5px; }
+.row { display: flex; gap: 6px; align-items: flex-end; }
+textarea { flex: 1; resize: vertical; min-height: 3.2em; background: var(--vscode-input-background); color: var(--vscode-input-foreground);
+  border: 1px solid var(--vscode-input-border, transparent); border-radius: 3px; padding: 5px 7px; font: inherit; }
+textarea:focus, button:focus-visible, select:focus-visible { outline: 1px solid var(--vscode-focusBorder); }

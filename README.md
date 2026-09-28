@@ -13,6 +13,7 @@ model na Sparku nebo váš nástroj), zopakovat náš test, nebo si nechat uděl
 |---|---|
 | `main` | tento návod, zpráva (PDF), přehled úloh (`ulohy.md`), firmware bez chyb (`firmware/`) |
 | `review/` | nástroj na review a test na 10 známých chybách |
+| `vscode-spark/` | rozšíření VS Code **Spark Chat**: chat a review na Sparku (instalace v „Rychlé ukázce“) |
 | `esp-bench/` | celý benchmark: agenti opravují chyby, build, kontroly, PDF (návod v `esp-bench/README.md`, postup v `esp-bench/METODIKA.md`) |
 | `vysledky/` | PDF našich běhů pro srovnání |
 | `uloha/B1` … `uloha/X4` | poslední commit „Úprava firmwaru“ vnáší chybu, `ZADANI.md` = hlášení od uživatele |
@@ -29,36 +30,36 @@ model na Sparku nebo váš nástroj), zopakovat náš test, nebo si nechat uděl
    Klíč nikdy nedávat do souborů ani do gitu.
 3. **Claude** (volitelně): Claude Code přihlášený vlastním předplatným.
 
-## Rychlá ukázka: review na Sparku z VS Code
+## Rychlá ukázka: Spark Chat ve VS Code
 
-Potřeba: Tailscale, proměnné z „Nastavení“ a Claude Code ve VS Code.
+Spark Chat je naše rozšíření VS Code (složka `vscode-spark/`): okno chatu a review s modelem gpt-oss-120b na Sparku.
+Běží bez cloudu a bez Claude, adresu a klíč bere jen z proměnných prostředí (viz „Nastavení“) a nikde je neukazuje.
+Potřeba je Tailscale.
 
-1. Ve VS Code otevřete prázdnou složku a v terminálu stáhněte experiment:
+1. Ve VS Code otevřete prázdnou složku a v terminálu (Ctrl+;) spusťte:
    ```
    git clone https://github.com/DavidPetrov2023/spark-experiment.git .
+   code --install-extension vscode-spark/spark-chat-0.1.0.vsix
    ```
-2. Tento text zkopírujte do chatu Claude Code:
-   ```
-   Spusť code review poslední změny v úloze X3 na Sparku (model gpt-oss-120b):
-   python review/spark_review.py . --range origin/uloha/X3~1..origin/uloha/X3 --effort medium
-   Proměnné prostředí nekontroluj ani nevypisuj, nástroj si adresu a klíč načte sám.
-   Pak otevři vytvořenou zprávu z review/vystupy, shrň nálezy a porovnej je se skutečným řešením úlohy X3 (git show origin/reseni:RESENI.md).
-   ```
-3. Claude Code se zeptá na povolení spustit příkazy. Povolte `python review/spark_review.py …` a příkazy `git`.
-   Kdyby chtěl vypsat proměnné prostředí, odmítněte (adresa a klíč nemají být vidět). Celé to trvá 1–2 minuty,
-   zpráva ze Sparku je v `review/vystupy/`.
+2. Vlevo v liště klikněte na ikonu **Spark** (hvězdička). V hlavičce okna je „Spark · gpt-oss-120b“.
+   Kdyby se ikona neobjevila: Ctrl+Shift+P → **Developer: Reload Window**.
+3. Klikněte na **🔍 Review posledního commitu** a vyberte větev **`origin/uloha/X3`**. Spark dostane poslední commit
+   té větve (změnu firmwaru se schválně vnesenou chybou) a asi za 30–60 s odpoví.
 
-**Co má vyjít:** Spark najde chybný řádek `vTaskDelay(POWER_SETTLE_MS * portTICK_PERIOD_MS)` v `firmware/main/main.c`:
-milisekundy se na tiky násobí místo dělení, deska čeká 125 s místo 1,25 s. Oprava je
-`vTaskDelay(pdMS_TO_TICKS(POWER_SETTLE_MS))`. Závažnost obvykle podcení (vysoká nebo střední místo kritická) a souvislost
-s návratem na starý firmware po OTA jen naznačí. Délku čekání občas spočítá o řád špatně (12,5 s). Formulace se
-pokaždé liší, chybný řádek i opravu ale v našich 9 pokusech našel pokaždé.
+**Co má vyjít:** Spark najde chybný řádek `vTaskDelay(POWER_SETTLE_MS * portTICK_PERIOD_MS)` v `firmware/main/main.c`
+(milisekundy se na tiky násobí místo dělení) a navrhne opravu `vTaskDelay(pdMS_TO_TICKS(POWER_SETTLE_MS))`.
+Závažnost obvykle podcení (vysoká nebo střední) a délku čekání občas spočítá o řád špatně (12,5 s). Formulace se
+pokaždé liší, chybný řádek i opravu ale v našich 11 pokusech našel pokaždé.
 
-**Pro srovnání s Claude** napište do chatu: `Teď udělej vlastní review stejné změny (git show origin/uloha/X3) a porovnej ho se Sparkem.`
-Claude v naší zkoušce označil chybu jako kritickou a přesně popsal, jak po 120 s spustí návrat na starý firmware (asi 2 minuty).
+**Správné řešení:** deska má před zapnutím WiFi počkat 1,25 s, čeká ale 125 s (1250 × 10 ms na tik). Nový firmware se
+po aktualizaci (OTA) musí potvrdit první telemetrií do 120 s. WiFi se zapne až po 125 s, a pojistka proto vrátí starý
+firmware. Oprava je jeden řádek v `main.c`, na OTA se nesahá. Víc v `RESENI.md` ve větvi `reseni`.
 
-Kód na Spark posílá jen náš nástroj. Claude Code ale běží u Anthropicu a zprávu i řešení čte. U kódu, který nesmí
-ven, spusťte příkaz z bodu 2 sami v terminálu.
+V chatu se dá dál ptát nebo přiložit otevřený soubor. Model ale vidí jen to, co mu pošlete. V naší zkoušce s
+přiloženým `ota.c` tvrdil, že se firmware nepotvrzuje nikde, protože neviděl `telemetry.c`. Odpovědi čtěte kriticky.
+
+**Pro srovnání s Claude** (kdo má Claude Code): `Udělej code review posledního commitu ve větvi origin/uloha/X3 (git show origin/uloha/X3).`
+Claude v naší zkoušce označil chybu jako kritickou a přesně popsal, jak po 120 s spustí návrat na starý firmware.
 
 ## 1. Bez instalace: chat (Open WebUI na Sparku nebo claude.ai)
 

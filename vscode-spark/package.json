@@ -1,0 +1,31 @@
+{
+  "name": "spark-chat",
+  "displayName": "Spark Chat",
+  "description": "Chat a code review s modelem gpt-oss-120b na serveru DGX Spark (LiteLLM). Adresa a klíč jen z proměnných prostředí.",
+  "version": "0.1.0",
+  "publisher": "sparktest",
+  "engines": { "vscode": "^1.90.0" },
+  "categories": ["AI", "Chat"],
+  "main": "./extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [{ "id": "sparkChat", "title": "Spark", "icon": "media/spark.svg" }]
+    },
+    "views": {
+      "sparkChat": [{ "type": "webview", "id": "sparkChat.view", "name": "Chat" }]
+    },
+    "commands": [
+      { "command": "sparkChat.review", "title": "Review posledního commitu", "category": "Spark" },
+      { "command": "sparkChat.new", "title": "Nový chat", "category": "Spark" }
+    ],
+    "configuration": {
+      "title": "Spark Chat",
+      "properties": {
+        "sparkChat.model": { "type": "string", "default": "gpt-oss-120b", "description": "Model na Sparku." },
+        "sparkChat.effort": { "type": "string", "enum": ["low", "medium", "high"], "default": "medium",
+          "description": "Výchozí úroveň přemýšlení (low je rychlé, high pomalé a důkladné)." }
+      }
+    }
+  }
+}
