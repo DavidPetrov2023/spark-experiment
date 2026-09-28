@@ -32,7 +32,7 @@ static const char *TAG = "ESPTEST";
 #define MOTOR_RIGHT_PWM 16
 #define MOTOR_RIGHT_DIR 17
 
-#define BLINK_MS 500
+#define BLINK_MS (500 / portTICK_PERIOD_MS)
 
 static void pins_init(void)
 {
