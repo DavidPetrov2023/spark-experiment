@@ -75,7 +75,7 @@ void app_main(void)
 
     bool on = false;
     while (1) {
-        on = !on;
+        on = true;
         gpio_set_level(LED_RED, on ? 0 : 1);
         vTaskDelay(pdMS_TO_TICKS(BLINK_MS));
     }
