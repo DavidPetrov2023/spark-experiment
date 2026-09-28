@@ -20,7 +20,7 @@
 static const char *TAG = "ESPTEST";
 
 // RGB dioda robota, aktivni v LOW (0 = sviti). Viz Zobo main/led.c.
-#define LED_RED   27
+#define LED_RED   12
 #define LED_GREEN 14
 #define LED_BLUE  12
 #define LED_MAIN  5
